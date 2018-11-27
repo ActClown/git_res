@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>TodoList</title>
+	<script src="vue.js"></script>
+</head>
+<!-- 
+ v-text 不会转义
+ v-html 会转义
+ v-show 不会删除DOM
+ v-if 会删除DOM
+ 
+ 
+ -->
+<body>
+	<div id= "root">
+		<div>
+			姓:<input v-model="first" />
+			名:<input v-model="last" />
+			<div>{{fullName}}</div>
+			<div>{{count}}</div>
+			<button @click="handleSubmit">Submit</button>
+		</div>
+	</div>
+	<script>
+		new Vue({
+			el: "#root",
+			data:{
+				first : '',
+				last: '',
+				count: 0
+			},
+			//计算 (与react 中的 reselect相似) 只有依赖的属性发生变化的是才会计算
+			computed:{
+				fullName: function(){
+					return this.first+" "+ this.last;
+				}
+			},
+			methods:{
+				handleSubmit: function(){
+					this.list.push(this.inputValue);
+					this.inputValue = '';
+				}
+			},
+			watch:{
+				fullName: function(){
+					this.count++;
+				}
+			}
+		})
+	</script>	
+</body>
+
+</html>
